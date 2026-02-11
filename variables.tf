@@ -16,13 +16,21 @@ EOT
   type = map(object({
     managed_instance_id = string
     description         = optional(string)
-    timezone_id         = optional(string, "UTC")
-    schedule = object({
+    timezone_id         = optional(string) # Default: "UTC"
+    schedule = list(object({
       start_day  = string
       start_time = string
       stop_day   = string
       stop_time  = string
-    })
+    }))
   }))
+  validation {
+    condition = alltrue([
+      for k, v in var.mssql_managed_instance_start_stop_schedules : (
+        length(v.schedule) >= 1
+      )
+    ])
+    error_message = "Each schedule list must contain at least 1 items"
+  }
 }
 

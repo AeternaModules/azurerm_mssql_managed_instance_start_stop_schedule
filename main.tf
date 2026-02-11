@@ -5,11 +5,14 @@ resource "azurerm_mssql_managed_instance_start_stop_schedule" "mssql_managed_ins
   description         = each.value.description
   timezone_id         = each.value.timezone_id
 
-  schedule {
-    start_day  = each.value.schedule.start_day
-    start_time = each.value.schedule.start_time
-    stop_day   = each.value.schedule.stop_day
-    stop_time  = each.value.schedule.stop_time
+  dynamic "schedule" {
+    for_each = each.value.schedule
+    content {
+      start_day  = schedule.value.start_day
+      start_time = schedule.value.start_time
+      stop_day   = schedule.value.stop_day
+      stop_time  = schedule.value.stop_time
+    }
   }
 }
 
