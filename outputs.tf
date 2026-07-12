@@ -1,3 +1,7 @@
+output "mssql_managed_instance_start_stop_schedules_id" {
+  description = "Map of id values across all mssql_managed_instance_start_stop_schedules, keyed the same as var.mssql_managed_instance_start_stop_schedules"
+  value       = { for k, v in azurerm_mssql_managed_instance_start_stop_schedule.mssql_managed_instance_start_stop_schedules : k => v.id }
+}
 output "mssql_managed_instance_start_stop_schedules_description" {
   description = "Map of description values across all mssql_managed_instance_start_stop_schedules, keyed the same as var.mssql_managed_instance_start_stop_schedules"
   value       = { for k, v in azurerm_mssql_managed_instance_start_stop_schedule.mssql_managed_instance_start_stop_schedules : k => v.description }
