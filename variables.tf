@@ -16,7 +16,7 @@ EOT
   type = map(object({
     managed_instance_id = string
     description         = optional(string)
-    timezone_id         = optional(string) # Default: "UTC"
+    timezone_id         = optional(string)
     schedule = list(object({
       start_day  = string
       start_time = string
